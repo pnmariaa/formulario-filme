@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Filmes</title>
+</head>
+<body>
+
+    <h1>Cadastro de Filmes Assistidos</h1>
+
+    <form id="formulario">
+        <label for="filme">Nome do filme:</label>
+        <input type="text" id="filme" required>
+
+        <br><br>
+
+        <label for="genero">Gênero:</label>
+        <select id="genero" required>
+            <option value="">Selecione</option>
+            <option value="Ação">Ação</option>
+            <option value="Comédia">Comédia</option>
+            <option value="Terror">Terror</option>
+            <option value="Drama">Drama</option>
+            <option value="Animação">Animação</option>
+        </select>
+
+        <br><br>
+
+        <label for="nota">Nota (0 a 10):</label>
+        <input type="number" id="nota" min="0" max="10" required>
+
+        <br><br>
+
+        <p>Assistiria novamente?</p>
+
+        <input type="radio" id="sim" name="novamente" value="Sim" required>
+        <label for="sim">Sim</label>
+
+        <input type="radio" id="nao" name="novamente" value="Não">
+        <label for="nao">Não</label>
+
+        <br><br>
+
+        <button type="submit">Cadastrar filme</button>
+    </form>
+
+    <h2>Filmes cadastrados</h2>
+
+    <ul id="listaFilmes"></ul>
+
+    <script>
+        let filmes = [];
+
+        const formulario = document.getElementById("formulario");
+        const lista = document.getElementById("listaFilmes");
+
+        formulario.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let nome = document.getElementById("filme").value;
+            let genero = document.getElementById("genero").value;
+            let nota = document.getElementById("nota").value;
+            let novamente = document.querySelector(
+                'input[name="novamente"]:checked'
+            ).value;
+
+            let filme = {
+                nome: nome,
+                genero: genero,
+                nota: nota,
+                novamente: novamente
+            };
+
+            filmes.push(filme);
+
+            let item = document.createElement("li");
+            item.textContent = nome + " — " + genero +
+                " — Nota " + nota + " — " + novamente;
+
+            lista.appendChild(item);
+
+            console.log(filmes);
+
+            formulario.reset();
+        });
+    </script>
+
+</body>
+</html>
